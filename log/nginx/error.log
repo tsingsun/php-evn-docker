@@ -1,0 +1,1 @@
+2018/02/09 05:15:54 [emerg] 10#10: directive "server_name" is not terminated by ";" in /etc/nginx/conf.d/site.conf:4

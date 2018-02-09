@@ -1,0 +1,23 @@
+version: '3'
+services:
+
+  php:
+    build:
+      dockerfile: Dockerfile-${DOCKERFILE_FLAVOUR}
+      context: 'php'
+      args:
+        - PHP_BASE_IMAGE_VERSION=${PHP_BASE_IMAGE_VERSION}
+        - SWOOLE_VERSION=${SWOOLE_VERSION}
+    image: ${PHP_IMAGE_NAME}:${PHP_BASE_IMAGE_VERSION}${PHP_IMAGE_VERSION_SUFFIX}
+    environment:
+      - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
+      - PHP_ENABLE_XDEBUG
+      - TEST_RUNTIME_PATH=/tmp/runtime  
+      - TIMEZONE=${TIMEZONE}
+    ports:
+      - 9000:9000
+    volumes:
+      - ./www/:/var/www/html/:delegated
+      - ./log/php/:/var/log/php/
+      # Composer cache
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated

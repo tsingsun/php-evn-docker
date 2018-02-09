@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    build:    
+      dockerfile: Dockerfile-alpine
+      context: nginx    
+    environment:
+      - FASTCGI_PASS_HOST="php:9000"
+      - TIMEZONE=${TIMEZONE}
+    ports:
+      - '8100:80'
+    volumes:
+      - ./www/:/var/www/html/:delegated
+      - ./log/nginx/:/var/log/nginx/:delegated
+#      - ./config/nginx/site.conf:/etc/nginx/conf.d/site.conf:rw
