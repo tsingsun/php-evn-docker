@@ -1,6 +1,7 @@
 # nginx for swoole/php-fpm
 FROM nginx:1.13.6-alpine
 
+ARG TIMEZONE
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
     apk update && \
     apk add --no-cache tzdata  && \ 

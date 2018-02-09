@@ -5,9 +5,10 @@ ARG PHP_BASE_IMAGE_VERSION
 FROM php:${PHP_BASE_IMAGE_VERSION}
 
 ARG SWOOLE_VERSION
-
+ARG TIMEZONE
 # Install system packages & PHP extensions required for Yii 2.0 Framework
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
+    echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories && \
     apk update && \
     apk add --no-cache tzdata  && \ 
     echo "${TIMEZONE}" > /etc/timezone && \    
@@ -32,6 +33,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
         hiredis-dev \
         libmcrypt-dev && \
     apk add \
+        shadow \
         git \
         curl \
         bash \
@@ -98,19 +100,16 @@ COPY image-files/ /
 # Add GITHUB_API_TOKEN support for composer
 RUN chmod 700 \
         /usr/local/bin/docker-php-entrypoint \
-        /usr/local/bin/composer
+        /usr/local/bin/composer.phar \
+        /usr/local/bin/composer 
 
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- \
-        --filename=composer.phar \
-        --install-dir=/usr/local/bin && \
-    composer clear-cache && \
+RUN composer clear-cache && \
     # Set chinese mirror
     composer config -g repo.packagist composer https://packagist.phpcomposer.com && \
-    composer config -g secure-http false
-
-# Install composer plugins
-RUN composer global require --optimize-autoloader \
+    composer config -g secure-http false && \
+    # Install composer plugins
+    composer global require --optimize-autoloader \
         "hirak/prestissimo:${VERSION_PRESTISSIMO_PLUGIN}" && \
     composer global dumpautoload --optimize && \
     composer clear-cache

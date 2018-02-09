@@ -9,14 +9,5 @@ if [ ! -n "$NGINX_ERROR_LOG_LEVEL" ] ; then
 fi
 sed -i "s|\${NGINX_ERROR_LOG_LEVEL}|${NGINX_ERROR_LOG_LEVEL}|" /etc/nginx/nginx.conf
 
-if [ ! -n "$SERVER_NAME" ] ; then
-    SERVER_NAME="site"
-fi
-grep "\${SERVER_NAME}" -rl /etc/nginx/conf.d | xargs sed -i "s|\${SERVER_NAME}|${SERVER_NAME}|"
-if [ ! -n "$FASTCGI_PASS_HOST" ] ; then
-    FASTCGI_PASS_HOST="phpfpm:9000"
-fi
-grep "\${FASTCGI_PASS_HOST}" -rl /etc/nginx/conf.d | xargs sed -i "s|\${FASTCGI_PASS_HOST}|${FASTCGI_PASS_HOST}|"
-
 # Run nginx
 nginx -g 'daemon off;'
