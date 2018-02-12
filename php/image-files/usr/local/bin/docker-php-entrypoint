@@ -2,8 +2,11 @@
 set -e
 
 # Set permissions based on ENV variable (debian only)
-if [ -x "usermod" ] ; then
-    usermod -u ${PHP_USER_ID} www-data
+if [ -x "$(command -v usermod)" ] ; then
+    if [ 0 -ne "${PHP_USER_ID:-0}" ] && [ 0 -ne "${PHP_GROUP_ID:-0}" ] ; then
+        usermod -u ${PHP_USER_ID} www-data
+        usermod -G ${PHP_GROUP_ID} www-data        
+    fi    
 fi
 
 # Enable xdebug by ENV variable

@@ -85,7 +85,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
         build-deps
 
 RUN echo "extension=imagick.so" > /usr/local/etc/php/conf.d/pecl-imagick.ini && \
-    echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/ext-mongodb.ini    
+    echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/ext-mongodb.ini && \
+    echo "extension=swoole.so" > /usr/local/etc/php/conf.d/ext-swoole.ini
 
 # Configure version constraints
 ENV PHP_ENABLE_XDEBUG=0 \

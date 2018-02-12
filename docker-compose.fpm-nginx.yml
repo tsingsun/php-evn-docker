@@ -8,6 +8,7 @@ services:
         - TIMEZONE=${TIMEZONE}    
     ports:
       - '8100:80'
+      - '8200:90'
     volumes:
       - ./www/:/var/www/html/:delegated
       - ./log/nginx/:/var/log/nginx/:delegated

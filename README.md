@@ -13,7 +13,7 @@
 
 * 环境文件
 
-.env为docker-compose的环境配置文件,可根据需求变更其内容.
+根目录.env为docker-compose的环境配置文件,可根据需求变更其内容.
 
 * docker-compose构建
 
@@ -36,6 +36,8 @@ docker-compose up
 
 ## 框架
 
+从网上借了张架构类似的图:  
+![结构图](https://sfault-image.b0.upaiyun.com/163/377/1633775139-56455bf065b3d_articlex)
 ## 目录说明
 
 ```text
@@ -55,7 +57,10 @@ docker-compose up
 |       |-- etc/nginx/nginx.conf            nginx主配置文件,一般不包含server节
 |       |-- etc/nginx/conf.d/               站点配置目录.
 |   |-- docker-nginx-entrypoint             nginx容器入口脚本
+|-- config                                  运行时自定义配置目录
+|   |-- nginx                               nginx站点配置目录,包含了一个测试配置
 |-- www                                     站点目录
+|   |-- app/                                测试站点,包含了一个显示phpinfo的文件
 |-- log                                     日志目录
 |   |-- php                                 PHP日志的目录
 |   |-- nginx                               nginx日志目录

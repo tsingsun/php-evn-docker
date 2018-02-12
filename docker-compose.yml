@@ -12,6 +12,8 @@ services:
     image: ${PHP_IMAGE_NAME}:${PHP_BASE_IMAGE_VERSION}${PHP_IMAGE_VERSION_SUFFIX}
     environment:
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
+      - PHP_USER_ID=${PHP_USER_ID}
+      - PHP_GROUP_ID=${PHP_GROUP_ID}
       - PHP_ENABLE_XDEBUG
       - TEST_RUNTIME_PATH=/tmp/runtime
     volumes:
@@ -19,3 +21,9 @@ services:
       - ./log/php/:/var/log/php/
       # Composer cache
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
+    ports:
+      - 9000:9000
+      # swoole
+      # - 9501:9501     
+    # swoole start
+    # command: php /var/www/html/app/web/swoole start
