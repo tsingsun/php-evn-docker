@@ -7,8 +7,7 @@ FROM php:${PHP_BASE_IMAGE_VERSION}
 ARG SWOOLE_VERSION
 ARG TIMEZONE
 # Install system packages & PHP extensions required for Yii 2.0 Framework
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
-    echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories && \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
     apk update && \
     apk add --no-cache tzdata  && \ 
     echo "${TIMEZONE}" > /etc/timezone && \    
